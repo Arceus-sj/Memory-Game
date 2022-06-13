@@ -1,1 +1,1 @@
-# Memory-Game
+# Memory Game using Vanilla JS
