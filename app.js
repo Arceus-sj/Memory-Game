@@ -83,11 +83,15 @@ const cardArray = new Array(
 
 // now we have to suffel array randomly:
 cardArray.sort(() => 0.5 - Math.random());
-console.log(cardArray);
+// console.log(cardArray);
 
 
 const gameDisplay = document.querySelector('.main-container');
-console.log(gameDisplay);
+// console.log(gameDisplay);
+
+const cardChosen = [];
+
+
 
 function createCards () {
     for(let i = 0; i < cardArray.length; i++) {
@@ -99,8 +103,38 @@ function createCards () {
         card.setAttribute('id', i);
 
         gameDisplay.appendChild(card);
+
+        card.addEventListener('click', flipCard);
         
     }
 }
 
 createCards();
+
+
+function checkForMatch() {
+    if (cardChosen[0] === cardChosen[1]) {
+        alert('You found a match ...');
+    }
+    else {
+        alert('Not matched ...');
+    }
+
+}
+
+
+function flipCard () {
+    const cardID = this.getAttribute('id');
+    // console.log('card id', cardID);
+    // console.log(cardArray[cardID].name);
+    cardChosen.push(cardArray[cardID].name);
+
+    // console.log(cardChosen);
+
+    this.setAttribute('src', cardArray[cardID].img);
+
+    if (cardChosen.length === 2) {
+        setTimeout(checkForMatch, 500);
+    }
+    
+}
