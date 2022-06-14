@@ -4,14 +4,46 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    /* background: #355C7D;  fallback for old browsers */
+    /* background: -webkit-linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);  Chrome 10-25, Safari 5.1-6 */
+    /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+     */
+    background: rgb(108,91,123);
+    background: -webkit-linear-gradient(45deg, rgba(108,91,123,1) 0%, rgba(53,92,125,1) 50%, rgba(192,108,132,1) 100%);
+    background: linear-gradient(45deg, rgba(108,91,123,1) 0%, rgba(53,92,125,1) 50%, rgba(192,108,132,1) 100%);
+    background-attachment: fixed;
+    background-size: 400% 400%;
+    animation-name: bgWave;
+    animation-duration: 10s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;   
+}
+
+@keyframes bgWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
 .main-container {
     width: 70%;
     height: 95vh;
     display: flex;
     flex-flow: column wrap;
     flex-basis: auto;
-    justify-content: space-evenly;
-    border: 3px solid black;
+    justify-content: space-around;
 }
 
 .main-container img {
