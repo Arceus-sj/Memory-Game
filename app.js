@@ -90,21 +90,21 @@ const gameDisplay = document.querySelector('.main-container');
 // console.log(gameDisplay);
 
 const cardChosen = [];
-
+const cardChosenID = [];
 
 
 function createCards () {
     for(let i = 0; i < cardArray.length; i++) {
 
         // created an image element: 
-        const card = document.createElement('img');
+        const cardElements = document.createElement('img');
         // set attributes to an image:
-        card.setAttribute('src', 'Images/blank.jpg');
-        card.setAttribute('id', i);
+        cardElements.setAttribute('src', 'Images/blank.jpg');
+        cardElements.setAttribute('id', i);
 
-        gameDisplay.appendChild(card);
+        gameDisplay.appendChild(cardElements);
 
-        card.addEventListener('click', flipCard);
+        cardElements.addEventListener('click', flipCard);
         
     }
 }
@@ -113,23 +113,37 @@ createCards();
 
 
 function checkForMatch() {
+
+    const cards = document.querySelectorAll('img');
+
+
     if (cardChosen[0] === cardChosen[1]) {
         alert('You found a match ...');
+        cards[cardChosenID[0]].setAttribute('src', 'Images/done.png');
+        cards[cardChosenID[1]].setAttribute('src', 'Images/done.png');
+        cards[cardChosenID[0]].removeEventListener('click', flipCard);
+        cards[cardChosenID[1]].removeEventListener('click', flipCard);
+        cardChosen.pop();
+        cardChosen.pop();
     }
-    else {
-        alert('Not matched ...');
+    else if(cardChosen[0] !== cardChosen[1]) {
+        cards[cardChosenID[0]].setAttribute('src', 'Images/blank.jpg');
+        cards[cardChosenID[1]].setAttribute('src', 'Images/blank.jpg');
+        cardChosen.pop();
+        cardChosen.pop();
     }
+    
 
 }
 
 
 function flipCard () {
     const cardID = this.getAttribute('id');
-    // console.log('card id', cardID);
-    // console.log(cardArray[cardID].name);
+   
+    console.log(cardID);
     cardChosen.push(cardArray[cardID].name);
-
-    // console.log(cardChosen);
+    cardChosenID.push(cardID);
+    console.log(cardChosenID);
 
     this.setAttribute('src', cardArray[cardID].img);
 
