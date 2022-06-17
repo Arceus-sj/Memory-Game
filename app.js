@@ -89,9 +89,10 @@ cardArray.sort(() => 0.5 - Math.random());
 const gameDisplay = document.querySelector('.main-container');
 // console.log(gameDisplay);
 
-const cardChosen = [];
-const cardChosenID = [];
-
+let cardChosen = [];
+let cardChosenID = [];
+let cardsWon = [];
+let displayScores = document.querySelector('#result');
 
 function createCards () {
     for(let i = 0; i < cardArray.length; i++) {
@@ -113,26 +114,47 @@ createCards();
 
 
 function checkForMatch() {
-
     const cards = document.querySelectorAll('img');
+    const firstOprtionID = cardChosenID[0];
+    const secondOptionID = cardChosenID[1];
+
+    // if user clicked the same card-->
+    if(firstOprtionID === secondOptionID) {
+        alert('You have clicked same card ...');
+    }
 
 
-    if (cardChosen[0] === cardChosen[1]) {
-        alert('You found a match ...');
-        cards[cardChosenID[0]].setAttribute('src', 'Images/done.png');
-        cards[cardChosenID[1]].setAttribute('src', 'Images/done.png');
-        cards[cardChosenID[0]].removeEventListener('click', flipCard);
-        cards[cardChosenID[1]].removeEventListener('click', flipCard);
-        cardChosen.pop();
-        cardChosen.pop();
+    // if user found the matching cards-->
+    if (cardChosen[0] === cardChosen[1] && firstOprtionID !== secondOptionID) {
+        // alert('You found a match ...');
+        cards[firstOprtionID].setAttribute('src', 'Images/done.jpeg');
+        cards[secondOptionID].setAttribute('src', 'Images/done.jpeg');
+
+        // after finding the matched card we need to remove the click event- 
+        // listener from those cards--> 
+        cards[firstOprtionID].removeEventListener('click', flipCard);
+        cards[secondOptionID].removeEventListener('click', flipCard);
+        cardsWon.push(cardChosen);
     }
-    else if(cardChosen[0] !== cardChosen[1]) {
-        cards[cardChosenID[0]].setAttribute('src', 'Images/blank.jpg');
-        cards[cardChosenID[1]].setAttribute('src', 'Images/blank.jpg');
-        cardChosen.pop();
-        cardChosen.pop();
+    // if the chosen cards are not match then set attribute to blank.jpg
+    else {
+        cards[firstOprtionID].setAttribute('src', 'Images/blank.jpg');
+        cards[secondOptionID].setAttribute('src', 'Images/blank.jpg');
     }
+
+    // displaying scores-->
+    displayScores.textContent = cardsWon.length;
+
+
+    // for the new attempt we have empty the card chosen and its ids--> 
+    cardChosen = [];
+    cardChosenID = [];
     
+
+    // if user found all the cards-->
+    if (cardsWon.length === cardArray.length/2) {
+        displayScores.innerHTML = '🎉 You found all the cards ... 🥳🥳🥳';
+    }
 
 }
 
