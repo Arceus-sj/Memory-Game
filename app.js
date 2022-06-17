@@ -13,6 +13,7 @@
 // .removeEventListener()
 // .textContent
 
+
 const cardArray = new Array(
     {
         name: 'hokage',
@@ -113,6 +114,8 @@ function createCards () {
 createCards();
 
 
+
+
 function checkForMatch() {
     const cards = document.querySelectorAll('img');
     const firstOprtionID = cardChosenID[0];
@@ -174,3 +177,4 @@ function flipCard () {
     }
     
 }
+
